@@ -1,80 +1,191 @@
 ---
-title: "Quickstart"
-description: "Start building awesome documentation in minutes"
+title: Quickstart
+description: Get started with hline in under 5 minutes
 ---
 
-## Get started in three steps
+This guide walks you through your first use of hline, from launch to copying commands from your bash history.
 
-Get your documentation site running locally and make your first customization.
+## Launch hline
 
-### Step 1: Set up your local environment
+With your default bash history file (`~/.bash_history`):
 
-<AccordionGroup>
-  <Accordion icon="copy" title="Clone your docs locally">
-    During the onboarding process, you created a GitHub repository with your docs content if you didn't already have one. You can find a link to this repository in your [dashboard](https://dashboard.mintlify.com).
+```bash
+hline
+```
+
+Or specify a custom history file:
+
+```bash
+hline --file /path/to/custom_history
+```
+
+You'll see a TUI showing your bash history with a centered cursor.
+
+## Navigate your history
+
+<Steps>
+  <Step title="Move up and down">
+    Use `j` or `Down` to move down one line.
     
-    To clone the repository locally so that you can make and preview changes to your docs, follow the [Cloning a repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) guide in the GitHub docs.
-  </Accordion>
-  <Accordion icon="rectangle-terminal" title="Start the preview server">
-    1. Install the Mintlify CLI: `npm i -g mint`
-    2. Navigate to your docs directory and run: `mint dev`
-    3. Open `http://localhost:3000` to see your docs live!
+    Use `k` or `Up` to move up one line.
     
-    <Tip>Your preview updates automatically as you edit files.</Tip>
-  </Accordion>
-</AccordionGroup>
+    The cursor stays centered, and the list scrolls around it for comfortable browsing.
+  </Step>
 
-### Step 2: Deploy your changes
-
-<AccordionGroup>
-  <Accordion icon="github" title="Install our GitHub app">
-    Install the Mintlify GitHub app from your [dashboard](https://dashboard.mintlify.com/settings/organization/github-app).
+  <Step title="Jump quickly">
+    Press `g` to jump to the top of your history.
     
-    Our GitHub app automatically deploys your changes to your docs site, so you don't need to manage deployments yourself.
+    Press `G` (Shift+g) to jump to the bottom.
+    
+    Use `Ctrl+d` or `PageDown` to move down half a page.
+    
+    Use `Ctrl+u` or `PageUp` to move up half a page.
+  </Step>
+
+  <Step title="Get help">
+    Press `?` to show the help screen with all keybindings.
+    
+    Press `Esc` or `?` again to close help.
+  </Step>
+</Steps>
+
+## Search and filter
+
+You can filter your history to find specific commands quickly.
+
+<Steps>
+  <Step title="Enter search mode">
+    Press `/` to enter search mode.
+    
+    The bottom of the screen shows your search query as you type.
+  </Step>
+
+  <Step title="Type your search">
+    Start typing to filter the history. For example, type `git` to show only git commands.
+    
+    Search is case-insensitive and matches anywhere in the command.
+    
+    The results update live as you type.
+  </Step>
+
+  <Step title="Exit search mode">
+    Press `Enter` to confirm the search and return to normal mode (filter remains active).
+    
+    Press `Esc` to exit search mode.
+  </Step>
+</Steps>
+
+<Tip>
+In search mode, you can use:
+- `Backspace` to delete the last character
+- `Ctrl+w` to delete the last word
+- `Ctrl+u` to clear the entire search query
+</Tip>
+
+## Copy commands
+
+### Copy a single command
+
+Navigate to the command you want and press `y` to copy it to your clipboard.
+
+You'll see a confirmation toast: `Copied 1 line`.
+
+### Copy multiple commands
+
+<Steps>
+  <Step title="Select commands">
+    Navigate to a command and press `Space` to select it.
+    
+    A visual indicator shows selected items.
+    
+    Repeat for each command you want to copy.
+  </Step>
+
+  <Step title="Copy selected">
+    Press `y` to copy all selected commands to your clipboard.
+    
+    You'll see: `Copied N lines` where N is the number of selected commands.
+    
+    Commands are copied in the order you selected them, separated by newlines.
+  </Step>
+
+  <Step title="Clear selection (optional)">
+    Press `c` to clear all selections.
+    
+    You'll see: `Cleared selections`.
+  </Step>
+</Steps>
+
+<Note>
+You can also press `a` to select all currently visible (filtered) commands at once.
+</Note>
+
+## Sort your history
+
+By default, history is sorted by recency (newest first).
+
+<Steps>
+  <Step title="Cycle sort modes">
+    Press `s` to cycle through sort modes:
+    - **Recency** - newest or oldest first
+    - **Alphabetical** - A→Z or Z→A
+    - **Length** - short→long or long→short
+  </Step>
+
+  <Step title="Reverse sort direction">
+    Press `S` (Shift+s) to reverse the current sort direction.
+    
+    For example, toggle between newest-first and oldest-first.
+  </Step>
+</Steps>
+
+The current sort mode is shown in the status bar at the bottom of the screen.
+
+## Exit hline
+
+Press `q` to quit and return to your terminal.
+
+## Essential keybindings
+
+<Accordion title="Navigation">
+  - `j` / `Down` - Move down
+  - `k` / `Up` - Move up
+  - `Ctrl+d` / `PageDown` - Half page down
+  - `Ctrl+u` / `PageUp` - Half page up
+  - `g` - Jump to top
+  - `G` - Jump to bottom
 </Accordion>
-<Accordion icon="palette" title="Update your site name and colors">
-    For a first change, let's update the name and colors of your docs site.
 
-    1. Open `docs.json` in your editor.
-    2. Change the `"name"` field to your project name.
-    3. Update the `"colors"` to match your brand.
-    4. Save and see your changes instantly at `http://localhost:3000`.
+<Accordion title="Search">
+  - `/` - Enter search mode
+  - `Enter` - Confirm search (in search mode)
+  - `Esc` - Exit search mode
+  - `Ctrl+w` - Delete last word (in search mode)
+  - `Ctrl+u` - Clear search query (in search mode)
+</Accordion>
 
-    <Tip>Try changing the primary color to see an immediate difference!</Tip>
-  </Accordion>
-</AccordionGroup>
+<Accordion title="Selection and copy">
+  - `Space` - Toggle selection on current line
+  - `a` - Select all visible commands
+  - `c` - Clear all selections
+  - `y` - Copy selected commands (or current if none selected)
+</Accordion>
 
-### Step 3: Go live
+<Accordion title="Sorting">
+  - `s` - Cycle sort mode (recency → alphabetical → length)
+  - `S` - Reverse sort direction
+</Accordion>
 
-<Accordion icon="rocket" title="Publish your docs">
-  1. Commit and push your changes.
-  2. Your docs will update and be live in moments!
+<Accordion title="Other">
+  - `?` - Show/hide help
+  - `q` - Quit
 </Accordion>
 
 ## Next steps
 
-Now that you have your docs running, explore these key features:
+Now that you know the basics, explore more features:
 
-<CardGroup cols={2}>
-
-<Card title="Write Content" icon="pen-to-square" href="/essentials/markdown">
-  Learn MDX syntax and start writing your documentation.
-</Card>
-
-<Card title="Customize style" icon="palette" href="/essentials/settings">
-  Make your docs match your brand perfectly.
-</Card>
-
-<Card title="Add code examples" icon="square-code" href="/essentials/code">
-  Include syntax-highlighted code blocks.
-</Card>
-
-<Card title="API documentation" icon="code" href="/api-reference/introduction">
-  Auto-generate API docs from OpenAPI specs.
-</Card>
-
-</CardGroup>
-
-<Note>
-  **Need help?** See our [full documentation](https://mintlify.com/docs) or join our [community](https://mintlify.com/community).
-</Note>
+- Learn about [advanced search techniques](/usage/search-and-filter)
+- Discover [sorting options](/usage/sorting) in detail
+- Configure [custom history files](/reference/configuration)
+- See [all keybindings](/usage/keybindings) in one place

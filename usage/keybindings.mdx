@@ -1,0 +1,124 @@
+---
+title: Keybindings
+description: Complete reference of all keyboard shortcuts in hline
+---
+
+Hline uses vim-style keybindings for navigation and supports two input modes: normal mode and search mode. Each mode has its own set of keybindings.
+
+## Normal mode
+
+Normal mode is the default mode when you launch hline. This is where you navigate, select, and copy commands.
+
+### Navigation
+
+<ParamField path="j / Down" type="key">
+  Move cursor down one line
+</ParamField>
+
+<ParamField path="k / Up" type="key">
+  Move cursor up one line
+</ParamField>
+
+<ParamField path="Ctrl+d / PageDown" type="key">
+  Move down half a page (half the viewport height)
+</ParamField>
+
+<ParamField path="Ctrl+u / PageUp" type="key">
+  Move up half a page (half the viewport height)
+</ParamField>
+
+<ParamField path="g" type="key">
+  Jump to the top of the list
+</ParamField>
+
+<ParamField path="G" type="key">
+  Jump to the bottom of the list
+</ParamField>
+
+### Selection
+
+<ParamField path="Space" type="key">
+  Toggle selection for the current entry
+</ParamField>
+
+<ParamField path="a" type="key">
+  Select all currently shown entries (respects active filters)
+</ParamField>
+
+<ParamField path="c" type="key">
+  Clear all selections
+</ParamField>
+
+<ParamField path="y" type="key">
+  Copy the current entry, or all selected entries if any are selected
+</ParamField>
+
+### Search
+
+<ParamField path="/" type="key">
+  Enter search mode to filter commands
+</ParamField>
+
+### Sorting
+
+<ParamField path="s" type="key">
+  Cycle through sort modes: Recency → Alpha → Length → Recency
+</ParamField>
+
+<ParamField path="S" type="key">
+  Toggle sort direction (ascending/descending)
+</ParamField>
+
+### Help and quit
+
+<ParamField path="?" type="key">
+  Toggle the help screen
+</ParamField>
+
+<ParamField path="q" type="key">
+  Quit hline
+</ParamField>
+
+## Search mode
+
+When you press `/` in normal mode, you enter search mode. The search query appears at the bottom of the screen, and results update as you type.
+
+### Text editing
+
+<ParamField path="any character" type="key">
+  Insert character into the search query (modifiers like Ctrl and Alt are ignored)
+</ParamField>
+
+<ParamField path="Backspace" type="key">
+  Delete the last character from the search query
+</ParamField>
+
+<ParamField path="Ctrl+w / Ctrl+Backspace" type="key">
+  Delete the last word from the search query (removes trailing whitespace first, then the word)
+</ParamField>
+
+<ParamField path="Ctrl+u" type="key">
+  Clear the entire search query
+</ParamField>
+
+### Exiting search
+
+<ParamField path="Esc / Enter" type="key">
+  Exit search mode and return to normal mode (keeps the current filter active)
+</ParamField>
+
+## Context-aware behavior
+
+Some keys behave differently depending on the mode:
+
+- **Ctrl+u** moves up half a page in normal mode, but clears the search query in search mode
+- **?** toggles the help screen in normal mode; when help is visible, press `?` or `Esc` to close it
+
+## Help screen override
+
+When the help screen is visible, most keys are ignored except:
+
+- `?` - Close the help screen
+- `Esc` - Close the help screen
+
+This prevents accidental navigation or selection changes while viewing help.

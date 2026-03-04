@@ -1,0 +1,81 @@
+---
+title: Command-line options
+description: Available command-line flags and arguments for hline
+---
+
+## Synopsis
+
+```bash
+hline [OPTIONS]
+```
+
+## Description
+
+hline is a centered-cursor TUI for browsing bash history. When you run `hline`, it loads your bash history file and presents it in an interactive terminal interface.
+
+## Options
+
+<ParamField path="--file" type="path">
+  Path to a custom history file to browse.
+
+  If not specified, hline uses the default bash history path:
+  - `$HOME/.bash_history` when the HOME environment variable is set
+  - `./.bash_history` as a fallback
+
+  **Example:**
+  ```bash
+  hline --file ~/.zsh_history
+  ```
+</ParamField>
+
+<ParamField path="--help" type="flag">
+  Display help information about available options and exit.
+
+  **Example:**
+  ```bash
+  hline --help
+  ```
+</ParamField>
+
+<ParamField path="--version" type="flag">
+  Display version information and exit.
+
+  **Example:**
+  ```bash
+  hline --version
+  ```
+</ParamField>
+
+## Usage examples
+
+### Browse default bash history
+
+```bash
+hline
+```
+
+This loads `~/.bash_history` and opens the interactive browser.
+
+### Browse a custom history file
+
+```bash
+hline --file /path/to/custom_history
+```
+
+You can point hline at any text file with one command per line.
+
+### Browse history from a different user
+
+```bash
+sudo hline --file /home/otheruser/.bash_history
+```
+
+## Exit codes
+
+The program returns standard exit codes:
+- `0` - Successful execution
+- Non-zero - An error occurred (e.g., history file not found, permission denied)
+
+## Interactive mode
+
+Once hline launches, you can use keyboard shortcuts to navigate, search, and copy commands. See the [keybindings](/usage/keybindings) page for details.

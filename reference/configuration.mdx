@@ -1,0 +1,147 @@
+---
+title: Configuration
+description: How hline finds and reads your bash history
+---
+
+## Overview
+
+hline is designed to work with minimal configuration. It reads your bash history file directly and doesn't require a separate configuration file.
+
+## History file location
+
+### Default path
+
+When you run `hline` without arguments, it automatically locates your bash history:
+
+1. Checks the `HOME` environment variable
+2. Constructs the path as `$HOME/.bash_history`
+3. Falls back to `./.bash_history` if `HOME` is not set
+
+The default path logic is defined in `history.rs:11-16`.
+
+### Custom path
+
+You can specify a different history file using the `--file` flag:
+
+```bash
+hline --file /path/to/custom_history
+```
+
+This is useful for:
+- Browsing history from different shells (zsh, fish, etc.)
+- Reviewing history from other users
+- Reading command logs from custom locations
+
+## Environment variables
+
+<ParamField path="HOME" type="string">
+  Standard environment variable pointing to your home directory.
+
+  hline uses this to construct the default history path: `$HOME/.bash_history`
+
+  If `HOME` is not set, hline falls back to `./.bash_history` in the current directory.
+</ParamField>
+
+## History file format
+
+hline expects a plain text file with one command per line, matching the standard bash history format.
+
+### Supported format
+
+```bash
+ls -la
+git status
+cd ~/projects
+make build
+```
+
+### Timestamp entries
+
+Bash can optionally store timestamps in the history file when `HISTTIMEFORMAT` is set. These appear as lines starting with `#` followed by a Unix timestamp:
+
+```bash
+#1700000000
+ls -la
+#1700000123
+git status
+```
+
+hline automatically ignores these timestamp lines when loading history (implemented in `history.rs:41-47`).
+
+### Line processing
+
+When loading your history file, hline:
+- Strips carriage returns (`\r`) from line endings for cross-platform compatibility
+- Skips timestamp lines (lines matching `#<digits>`)
+- Filters out empty lines
+- Reverses the order so the most recent commands appear first
+
+The parsing logic is in `history.rs:18-39`.
+
+## Shell integration
+
+### Bash configuration
+
+To get the most out of hline, configure bash to maintain a comprehensive history:
+
+```bash
+# ~/.bashrc or ~/.bash_profile
+
+# Increase history size
+export HISTSIZE=10000
+export HISTFILESIZE=20000
+
+# Append to history file instead of overwriting
+shopt -s histappend
+
+# Save multi-line commands as single entries
+shopt -s cmdhist
+
+# Avoid duplicate entries
+export HISTCONTROL=ignoredups:erasedups
+
+# Optional: Add timestamps to history
+export HISTTIMEFORMAT="%F %T "
+```
+
+### Other shells
+
+While hline is optimized for bash history, you can browse history from other shells by pointing to their history files:
+
+```bash
+# Zsh
+hline --file ~/.zsh_history
+
+# Fish (requires conversion, as fish uses a different format)
+# First export: history --export > /tmp/fish_history.txt
+hline --file /tmp/fish_history.txt
+```
+
+<Note>
+  Zsh and Fish use different history formats with metadata. You may see extra formatting characters when browsing their history files with hline.
+</Note>
+
+## No configuration file
+
+hline does not use a configuration file. All options are specified via command-line flags. This keeps the tool simple and predictable.
+
+If you frequently use custom options, create a shell alias:
+
+```bash
+# ~/.bashrc
+alias hl='hline --file ~/.zsh_history'
+```
+
+## Permissions
+
+hline needs read access to the history file. If you encounter permission errors:
+
+```bash
+# Check file permissions
+ls -l ~/.bash_history
+
+# Ensure the file is readable
+chmod 600 ~/.bash_history
+```
+
+For browsing another user's history, you'll need appropriate permissions (typically root access).

@@ -1,0 +1,126 @@
+---
+title: Contributing
+description: Guide for contributing to hline development
+---
+
+Contributions to hline are welcome. This guide will help you get started with the development workflow and code quality standards.
+
+## Development workflow
+
+### 1. Fork and clone
+
+Fork the repository on GitHub, then clone your fork:
+
+```bash
+git clone https://github.com/YOUR_USERNAME/hline.git
+cd hline
+```
+
+### 2. Create a branch
+
+Create a feature branch for your changes:
+
+```bash
+git checkout -b feature/your-feature-name
+```
+
+### 3. Make changes
+
+Edit code, add tests, and update documentation as needed.
+
+### 4. Run quality checks
+
+Before committing, ensure your code passes all checks:
+
+```bash
+cargo fmt --all
+cargo clippy --all-targets --all-features -- -D warnings
+cargo test --all-targets
+```
+
+See [Building from source](/development/building-from-source#quality-checks) for details on each check.
+
+### 5. Commit and push
+
+Commit your changes with a descriptive message:
+
+```bash
+git add .
+git commit -m "Add feature: brief description"
+git push origin feature/your-feature-name
+```
+
+### 6. Open a pull request
+
+Go to the [hline repository](https://github.com/PedroElizalde01/hline) and open a pull request from your branch.
+
+## Code quality requirements
+
+All contributions must meet these standards:
+
+### Formatting
+
+Code must be formatted with `rustfmt`:
+
+```bash
+cargo fmt --all -- --check
+```
+
+If this fails, run `cargo fmt --all` to auto-format.
+
+### Linting
+
+Code must pass Clippy with no warnings:
+
+```bash
+cargo clippy --all-targets --all-features -- -D warnings
+```
+
+Fix any issues reported by Clippy before submitting.
+
+### Tests
+
+All tests must pass:
+
+```bash
+cargo test --all-targets
+```
+
+Add tests for new features or bug fixes.
+
+## Code style guidelines
+
+Follow the existing code style in the repository:
+
+- Match the Rust style used in existing files
+- Use descriptive variable and function names
+- Add comments for complex logic
+- Keep functions focused and reasonably sized
+- Follow Rust naming conventions:
+  - `snake_case` for functions and variables
+  - `PascalCase` for types and traits
+  - `SCREAMING_SNAKE_CASE` for constants
+
+## Pull request process
+
+1. **Ensure CI passes**: All GitHub Actions checks must pass
+2. **Keep PRs focused**: One feature or fix per pull request
+3. **Update documentation**: Add or update docs for new features
+4. **Write clear descriptions**: Explain what your PR does and why
+5. **Respond to feedback**: Address review comments promptly
+
+## Reporting issues
+
+Found a bug or have a feature request? Open an issue on the [GitHub repository](https://github.com/PedroElizalde01/hline/issues).
+
+When reporting bugs, include:
+- Steps to reproduce
+- Expected behavior
+- Actual behavior
+- Environment details (OS, Rust version, etc.)
+
+## License
+
+By contributing to hline, you agree that your contributions will be licensed under the MIT License.
+
+See the [`LICENSE`](https://github.com/PedroElizalde01/hline/blob/main/LICENSE) file for the full license text.

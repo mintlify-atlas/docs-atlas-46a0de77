@@ -1,0 +1,203 @@
+---
+title: Introduction
+description: Browse bash history with a powerful terminal UI featuring centered cursor, live filtering, and multi-select
+mode: custom
+---
+
+<div className="relative overflow-hidden bg-gradient-to-b from-[#0a0e1a] via-[#0f1117] to-[#0a0e1a] dark:from-[#0a0e1a] dark:via-[#0f1117] dark:to-[#0a0e1a]">
+  {/* Hero Section */}
+  <div className="relative py-20 px-4 sm:px-6 lg:px-8">
+    <div className="max-w-7xl mx-auto">
+      <div className="text-center">
+        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-6">
+          Browse Your Bash History
+          <span className="block mt-2 bg-gradient-to-r from-[#3a9a3a] to-[#238636] bg-clip-text text-transparent">
+            Like Never Before
+          </span>
+        </h1>
+        <p className="mt-6 text-xl sm:text-2xl text-gray-300 max-w-3xl mx-auto">
+          hline is a fast, powerful terminal UI for navigating bash history with centered-cursor scrolling, live filtering, sorting, and multi-select capabilities.
+        </p>
+        <div className="mt-10 flex flex-wrap justify-center gap-4">
+          <a 
+            href="/installation" 
+            className="inline-flex items-center px-8 py-3.5 rounded-lg text-base font-semibold bg-[#238636] text-white hover:bg-[#2ea043] transition-colors no-underline"
+          >
+            Get Started
+            <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </a>
+          <a 
+            href="/quickstart" 
+            className="inline-flex items-center px-8 py-3.5 rounded-lg text-base font-semibold bg-white/10 text-white border border-white/30 hover:bg-white/20 hover:border-white/50 transition-colors no-underline"
+          >
+            Quick Start
+          </a>
+          <a 
+            href="https://github.com/PedroElizalde01/hline" 
+            className="inline-flex items-center px-8 py-3.5 rounded-lg text-base font-semibold bg-white/10 text-white border border-white/30 hover:bg-white/20 hover:border-white/50 transition-colors no-underline"
+          >
+            <svg className="mr-2 w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
+            </svg>
+            View on GitHub
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{/* Quick Start Section */}
+<div className="mt-16 mb-16 max-w-5xl mx-auto px-6">
+  <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Quick Start</h2>
+  <p className="text-lg text-gray-600 dark:text-gray-400 mb-8">Get hline up and running in seconds</p>
+  
+  <Steps>
+    <Step title="Install hline">
+      Install hline from GitHub Releases with a single command:
+      
+      ```bash
+      curl -fsSL https://raw.githubusercontent.com/PedroElizalde01/hline/main/install.sh | bash
+      ```
+      
+      The installer will detect your platform and install the binary to `~/.local/bin/hline`.
+      
+      <Note>Make sure `~/.local/bin` is in your PATH. Add `export PATH="$HOME/.local/bin:$PATH"` to your shell profile if needed.</Note>
+    </Step>
+    
+    <Step title="Launch the TUI">
+      Run hline to browse your bash history:
+      
+      ```bash
+      hline
+      ```
+      
+      By default, hline reads from `~/.bash_history`. You'll see a centered-cursor interface with your command history.
+    </Step>
+    
+    <Step title="Navigate and search">
+      Use Vi-style keybindings to navigate:
+      
+      - Press `j`/`k` or arrow keys to move up and down
+      - Press `/` to enter search mode and filter commands in real-time
+      - Press `Space` to select multiple commands
+      - Press `y` to copy selected commands to clipboard
+      - Press `q` to quit
+      
+      <Tip>Press `?` at any time to view the full keybindings reference.</Tip>
+    </Step>
+  </Steps>
+</div>
+
+{/* Features Section */}
+<div className="mt-16 mb-16 max-w-5xl mx-auto px-6">
+  <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Features</h2>
+  <p className="text-lg text-gray-600 dark:text-gray-400 mb-8">Everything you need to navigate your bash history efficiently</p>
+  
+  <CardGroup cols={2}>
+    <Card title="Centered Cursor" icon="bullseye" href="/usage/keybindings">
+      Smooth scrolling with the cursor always centered on screen, making it easy to browse large history files without losing your place.
+    </Card>
+    <Card title="Live Search" icon="magnifying-glass" href="/usage/search-and-filter">
+      Filter commands in real-time with case-insensitive search. Type `/` to enter search mode and see results instantly.
+    </Card>
+    <Card title="Flexible Sorting" icon="arrow-down-wide-short" href="/usage/sorting">
+      Sort by recency, alphabetical order, or command length. Cycle through modes with `s` and reverse direction with `S`.
+    </Card>
+    <Card title="Multi-Select" icon="check-double" href="/usage/selection-and-copy">
+      Select multiple commands with Space, select all visible with `a`, and copy to clipboard with `y`. Perfect for batch operations.
+    </Card>
+    <Card title="Vi-Style Keybindings" icon="keyboard" href="/usage/keybindings">
+      Familiar navigation with `j`/`k`, `g`/`G` for jumps, `Ctrl+d`/`Ctrl+u` for half-page scrolls, and more.
+    </Card>
+    <Card title="Custom History Path" icon="folder-open" href="/reference/command-line-options">
+      Browse any history file with the `--file` option. Great for analyzing history from other systems or users.
+    </Card>
+  </CardGroup>
+</div>
+
+{/* Explore Documentation */}
+<div className="mt-16 mb-16 max-w-5xl mx-auto px-6">
+  <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Explore the Documentation</h2>
+  <p className="text-lg text-gray-600 dark:text-gray-400 mb-8">Learn how to get the most out of hline</p>
+  
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <a href="/usage/keybindings" className="group block rounded-2xl border border-gray-200 dark:border-[#27272a] bg-white dark:bg-[#1a1d27] hover:border-[#242b2c] dark:hover:border-[#242b2c] overflow-hidden transition-colors no-underline">
+      <div className="p-6">
+        <div className="flex items-center mb-3">
+          <div className="w-10 h-10 rounded-lg bg-[#238636] flex items-center justify-center mr-3">
+            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+            </svg>
+          </div>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Usage Guide</h3>
+        </div>
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+          Master hline with comprehensive guides covering keybindings, search, sorting, and selection features.
+        </p>
+        <div className="flex items-center text-[#242b2c] dark:text-[#3a9a3a] group-hover:text-[#238636] dark:group-hover:text-[#238636] transition-colors">
+          <span className="text-sm font-medium">Read guides</span>
+          <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </div>
+      </div>
+    </a>
+    
+    <a href="/reference/command-line-options" className="group block rounded-2xl border border-gray-200 dark:border-[#27272a] bg-white dark:bg-[#1a1d27] hover:border-[#242b2c] dark:hover:border-[#242b2c] overflow-hidden transition-colors no-underline">
+      <div className="p-6">
+        <div className="flex items-center mb-3">
+          <div className="w-10 h-10 rounded-lg bg-[#238636] flex items-center justify-center mr-3">
+            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+          </div>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Reference</h3>
+        </div>
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+          Complete reference for command-line options and configuration settings.
+        </p>
+        <div className="flex items-center text-[#242b2c] dark:text-[#3a9a3a] group-hover:text-[#238636] dark:group-hover:text-[#238636] transition-colors">
+          <span className="text-sm font-medium">View reference</span>
+          <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
+
+{/* CTA Banner */}
+<div className="mt-16 mb-16 max-w-5xl mx-auto px-6">
+  <div className="relative rounded-2xl border border-gray-200 dark:border-[#27272a] bg-gradient-to-br from-white to-gray-50 dark:from-[#1a1d27] dark:to-[#0f1117] overflow-hidden">
+    <div className="relative p-8 sm:p-12">
+      <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Ready to get started?</h2>
+      <p className="text-lg text-gray-600 dark:text-gray-400 mb-6 max-w-2xl">
+        Install hline and start browsing your bash history with powerful navigation and search capabilities.
+      </p>
+      <div className="flex flex-wrap gap-4">
+        <a 
+          href="/installation" 
+          className="inline-flex items-center px-6 py-3 rounded-lg text-base font-semibold bg-[#238636] text-white hover:bg-[#2ea043] transition-colors no-underline"
+        >
+          Install Now
+          <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+          </svg>
+        </a>
+        <a 
+          href="https://github.com/PedroElizalde01/hline" 
+          className="inline-flex items-center px-6 py-3 rounded-lg text-base font-semibold bg-white dark:bg-[#1a1d27] text-gray-900 dark:text-white border border-gray-300 dark:border-[#27272a] hover:border-[#242b2c] dark:hover:border-[#242b2c] transition-colors no-underline"
+        >
+          <svg className="mr-2 w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
+          </svg>
+          Star on GitHub
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

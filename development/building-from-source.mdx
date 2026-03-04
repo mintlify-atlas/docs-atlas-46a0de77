@@ -1,0 +1,133 @@
+---
+title: Building from source
+description: Build hline locally from the source code
+---
+
+You can build hline from source if you want to contribute, customize the tool, or run the latest development version.
+
+## Prerequisites
+
+You need the Rust toolchain installed with the following minimum version:
+
+- **Rust 1.78** or later
+
+Install Rust via [rustup](https://rustup.rs/):
+
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
+
+## Build commands
+
+### Release build
+
+Build an optimized binary:
+
+```bash
+cargo build --release
+```
+
+The compiled binary will be at `target/release/hline`.
+
+<Tip>
+The release profile uses:
+- Thin LTO (`lto = "thin"`)
+- Single codegen unit (`codegen-units = 1`)
+- Stripped symbols (`strip = true`)
+
+This produces a smaller, faster binary optimized for distribution.
+</Tip>
+
+### Run the binary
+
+After building, you can run hline directly:
+
+```bash
+./target/release/hline --help
+./target/release/hline --version
+```
+
+### Run without building
+
+Use `cargo run` to compile and run in one step:
+
+```bash
+cargo run
+cargo run -- --file /path/to/history
+```
+
+## Running tests
+
+Run the test suite:
+
+```bash
+cargo test --all-targets
+```
+
+## Quality checks
+
+Before submitting code changes, run these checks:
+
+### Format check
+
+```bash
+cargo fmt --all -- --check
+```
+
+Auto-format code:
+
+```bash
+cargo fmt --all
+```
+
+### Linting
+
+```bash
+cargo clippy --all-targets --all-features -- -D warnings
+```
+
+This runs the Clippy linter with all warnings treated as errors.
+
+## Local release build
+
+Create a release artifact with checksums using the packaging script:
+
+```bash
+./scripts/release_local.sh
+```
+
+This will:
+1. Build hline for your current platform target
+2. Package the binary with `README.md` and `LICENSE`
+3. Create a `.tar.gz` archive
+4. Generate a SHA256 checksum file
+
+Artifacts are written to the `dist/` directory:
+
+```bash
+ls -lah dist
+```
+
+### Naming format
+
+Release archives follow this pattern:
+
+```
+hline-<arch>-<target>.tar.gz
+hline-<arch>-<target>.tar.gz.sha256
+```
+
+Example:
+
+```
+hline-x86_64-unknown-linux-gnu.tar.gz
+hline-x86_64-unknown-linux-gnu.tar.gz.sha256
+```
+
+### Custom build target
+
+Override the target triple:
+
+```bash
+TARGET_TRIPLE=aarch64-unknown-linux-gnu ./scripts/release_local.sh
+```

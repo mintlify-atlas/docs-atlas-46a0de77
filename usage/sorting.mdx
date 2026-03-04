@@ -1,0 +1,175 @@
+---
+title: Sorting
+description: Sort your command history by recency, alphabetically, or by command length
+---
+
+Hline supports three sort modes that control how your command history is ordered. You can cycle through modes and toggle between ascending and descending order.
+
+## Sort modes
+
+### Recency (default)
+
+Sorts commands by their position in your history file. This is the order they were executed.
+
+- **Default direction**: newest-first (most recent commands at the top)
+- **Reversed**: oldest-first (earliest commands at the top)
+
+This mode preserves the natural chronological order of your shell history.
+
+```terminal
+# Newest-first (default)
+git push origin main          # just ran this
+git commit -m "fix bug"       # ran a minute ago
+git status                    # ran 5 minutes ago
+
+# Oldest-first (reversed)
+cd ~/projects                 # from last week
+mkdir new-project            # from yesterday
+git status                    # from today
+```
+
+### Alpha
+
+Sorts commands alphabetically, using case-insensitive comparison.
+
+- **Default direction**: A→Z (alphabetical order)
+- **Reversed**: Z→A (reverse alphabetical order)
+
+Commands starting with the same letter are sorted by their full text.
+
+```terminal
+# A→Z order
+cat file.txt
+cd ~/projects
+docker ps
+git status
+ls -la
+
+# Z→A order
+ls -la
+git status
+docker ps
+cd ~/projects
+cat file.txt
+```
+
+### Length
+
+Sorts commands by their character length.
+
+- **Default direction**: short→long (shortest commands first)
+- **Reversed**: long→short (longest commands first)
+
+Useful for finding simple commands or identifying complex one-liners.
+
+```terminal
+# Short→long order
+ls
+pwd
+git status
+find . -name "*.rs"
+docker run --rm -it ubuntu bash
+
+# Long→short order
+docker run --rm -it ubuntu bash
+find . -name "*.rs"
+git status
+pwd
+ls
+```
+
+## Keybindings
+
+<ParamField path="s" type="key">
+  Cycle to the next sort mode: Recency → Alpha → Length → Recency
+</ParamField>
+
+<ParamField path="S" type="key">
+  Toggle the sort direction (ascending ↔ descending)
+</ParamField>
+
+## Status bar display
+
+The current sort mode and direction are always shown in the status bar:
+
+```terminal
+Filter: no filter | Sort: Recency (newest-first)
+Filter: no filter | Sort: Alpha (A→Z)
+Filter: no filter | Sort: Length (short→long)
+```
+
+When you reverse the direction:
+
+```terminal
+Filter: no filter | Sort: Recency (oldest-first)
+Filter: no filter | Sort: Alpha (Z→A)
+Filter: no filter | Sort: Length (long→short)
+```
+
+## Sorting with filters
+
+Sort order applies to filtered results, not just the full list:
+
+1. Enter a search query to filter commands
+2. Press `s` to cycle through sort modes
+3. The filtered results re-sort according to the selected mode
+
+```terminal
+# Search for "git" commands
+/git
+
+# Results in Recency order
+git push origin main
+git commit -m "fix"
+git status
+git add .
+
+# Press 's' to switch to Alpha sort
+git add .
+git commit -m "fix"
+git push origin main
+git status
+
+# Press 's' again to switch to Length sort
+git add .
+git status
+git commit -m "fix"
+git push origin main
+```
+
+## Sorting and selection
+
+Selection is independent of sort order:
+
+- Selected items remain selected when you change sort modes
+- The cursor stays on the same command when you change sort order
+- Pressing `y` copies selected commands in the order they were selected, not the current sort order
+
+### Example workflow
+
+```terminal
+# 1. Start with default Recency sort
+git push origin main      [cursor here]
+git commit -m "fix"
+git status
+
+# 2. Select the current command
+Space
+
+# 3. Switch to Alpha sort
+s
+
+# Cursor moves with the command
+git commit -m "fix"
+git push origin main      [cursor here, still selected]
+git status
+
+# 4. Selection is preserved across sort changes
+```
+
+## Tips
+
+- **Find recent commands**: Use Recency (newest-first) to see what you ran recently
+- **Find similar commands**: Use Alpha to group commands by their starting word
+- **Find complex commands**: Use Length (long→short) to surface elaborate one-liners
+- **Explore your habits**: Use Alpha to see how often you use certain tools

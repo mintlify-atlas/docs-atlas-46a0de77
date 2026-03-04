@@ -1,0 +1,168 @@
+---
+title: Installation
+description: Install hline on your Linux system
+---
+
+## Quick install
+
+The fastest way to install hline is using the installation script:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/PedroElizalde01/hline/main/install.sh | bash
+```
+
+This downloads the latest release from GitHub and installs it to `~/.local/bin/hline`.
+
+## Installation options
+
+### Install a specific version
+
+To install a specific version instead of the latest:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/PedroElizalde01/hline/main/install.sh | \
+  bash -s -- --version v0.1.0
+```
+
+### Customize installation directory
+
+By default, hline installs to `~/.local/bin`. You can change this with the `--bin-dir` option:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/PedroElizalde01/hline/main/install.sh | \
+  bash -s -- --bin-dir /usr/local/bin
+```
+
+### All installation options
+
+The install script supports these options:
+
+- `--repo OWNER/REPO` - Install from a different GitHub repository
+- `--version vX.Y.Z` - Install a specific version (default: latest)
+- `--bin-dir PATH` - Installation directory (default: `~/.local/bin`)
+- `--help` - Show help message
+
+<Tip>
+You can combine multiple options. For example:
+```bash
+curl -fsSL https://raw.githubusercontent.com/PedroElizalde01/hline/main/install.sh | \
+  bash -s -- --version v0.1.0 --bin-dir ~/.local/bin
+```
+</Tip>
+
+## Build from source
+
+If you prefer to build from source, you'll need Rust 1.78 or later.
+
+<Steps>
+  <Step title="Clone the repository">
+    ```bash
+    git clone https://github.com/PedroElizalde01/hline.git
+    cd hline
+    ```
+  </Step>
+
+  <Step title="Build the release binary">
+    ```bash
+    cargo build --release
+    ```
+    
+    The binary will be at `./target/release/hline`.
+  </Step>
+
+  <Step title="Install the binary">
+    ```bash
+    install -m 0755 ./target/release/hline ~/.local/bin/hline
+    ```
+  </Step>
+</Steps>
+
+<Note>
+For development builds and testing, see the [Building from source](/development/building-from-source) guide.
+</Note>
+
+## Verify installation
+
+After installation, verify that hline is working:
+
+```bash
+hline --version
+```
+
+You should see output like:
+
+```
+hline 0.1.0
+```
+
+Check available options:
+
+```bash
+hline --help
+```
+
+This shows:
+
+```
+Browse bash history in a centered-cursor TUI
+
+Usage: hline [OPTIONS]
+
+Options:
+      --file <PATH>  
+  -h, --help         Print help
+  -V, --version      Print version
+```
+
+## Troubleshooting
+
+### Command not found
+
+If you get `hline: command not found`, the installation directory is not in your PATH.
+
+<Steps>
+  <Step title="Check where hline was installed">
+    The default location is `~/.local/bin/hline`. Verify it exists:
+    ```bash
+    ls -la ~/.local/bin/hline
+    ```
+  </Step>
+
+  <Step title="Add the directory to your PATH">
+    Add this line to your shell profile (`~/.bashrc`, `~/.bash_profile`, or `~/.profile`):
+    ```bash
+    export PATH="$HOME/.local/bin:$PATH"
+    ```
+  </Step>
+
+  <Step title="Reload your shell configuration">
+    ```bash
+    source ~/.bashrc
+    ```
+    
+    Or start a new terminal session.
+  </Step>
+</Steps>
+
+### Permission denied
+
+If you get a permission error when running the install script with `--bin-dir /usr/local/bin`, you need elevated privileges:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/PedroElizalde01/hline/main/install.sh | \
+  sudo bash -s -- --bin-dir /usr/local/bin
+```
+
+<Warning>
+Only use `sudo` when installing to system directories like `/usr/local/bin`. For personal use, `~/.local/bin` is recommended.
+</Warning>
+
+### Checksum verification failed
+
+If the installation fails with a checksum mismatch error, the download may have been corrupted. Try running the install command again:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/PedroElizalde01/hline/main/install.sh | bash
+```
+
+If the problem persists, install a specific version using `--version`.

@@ -1,0 +1,240 @@
+---
+title: Selection and copy
+description: Select multiple commands and copy them to your clipboard
+---
+
+Hline allows you to select one or more commands and copy them to your system clipboard. Selection order is preserved, making it easy to build command sequences.
+
+## Selecting commands
+
+You can select commands individually or select all visible commands at once.
+
+### Toggle selection
+
+Press `Space` to toggle selection for the command under the cursor.
+
+```terminal
+# Before pressing Space
+  git status
+  git add .
+> git commit -m "fix"    [cursor]
+  git push
+
+# After pressing Space
+  git status
+  git add .
+✓ git commit -m "fix"    [cursor, now selected]
+  git push
+
+# Press Space again to deselect
+  git status
+  git add .
+> git commit -m "fix"    [cursor, deselected]
+  git push
+```
+
+### Select all visible
+
+Press `a` to select all currently shown commands. This respects any active filters.
+
+```terminal
+# With filter: "git"
+  git status
+  git add .
+  git commit -m "fix"
+  git push
+
+# Press 'a'
+✓ git status
+✓ git add .
+✓ git commit -m "fix"
+✓ git push
+
+# Shows toast: "Selected 4 shown entries"
+```
+
+If you have 100 git commands in your history and filter for "git push", pressing `a` selects only the visible "git push" commands, not all git commands.
+
+### Clear all selections
+
+Press `c` to deselect everything.
+
+```terminal
+# Before pressing 'c'
+✓ git status
+✓ git add .
+  git commit -m "fix"
+✓ git push
+
+# After pressing 'c'
+  git status
+  git add .
+  git commit -m "fix"
+  git push
+
+# Shows toast: "Cleared selections"
+```
+
+## Copying to clipboard
+
+Press `y` to copy commands to your system clipboard.
+
+### Copy behavior
+
+- **No selection**: Copies the command under the cursor
+- **With selection**: Copies all selected commands in the order they were selected
+
+### Copy single command
+
+```terminal
+# Cursor on a command, nothing selected
+  git status
+> git add .              [cursor]
+  git commit
+
+# Press 'y'
+# Clipboard now contains: git add .
+# Shows toast: "Copied 1 line"
+```
+
+### Copy multiple commands
+
+```terminal
+# Multiple commands selected
+✓ git add .
+  git status
+✓ git commit -m "fix"
+✓ git push
+
+# Press 'y'
+# Clipboard now contains:
+# git add .
+# git commit -m "fix"
+# git push
+# Shows toast: "Copied 3 lines"
+```
+
+Each command is copied on its own line, ready to paste into a shell script or terminal.
+
+## Selection order preservation
+
+Commands are copied in the order you selected them, not the order they appear on screen. This lets you build custom command sequences.
+
+### Example: building a git workflow
+
+```terminal
+# Your history (in Recency order)
+  git push origin main
+  git commit -m "fix bug"
+  git add .
+  git status
+
+# Step 1: Move cursor to "git add ." and press Space
+  git push origin main
+  git commit -m "fix bug"
+✓ git add .              [selected first]
+  git status
+
+# Step 2: Move cursor to "git commit" and press Space
+  git push origin main
+✓ git commit -m "fix bug"  [selected second]
+✓ git add .
+  git status
+
+# Step 3: Move cursor to "git push" and press Space
+✓ git push origin main     [selected third]
+✓ git commit -m "fix bug"
+✓ git add .
+  git status
+
+# Step 4: Press 'y' to copy
+# Clipboard contains (in selection order):
+# git add .
+# git commit -m "fix bug"
+# git push origin main
+```
+
+Even though "git push" appears first on screen, it's copied last because you selected it last.
+
+## Selection with filters
+
+Selections persist even when commands are filtered out of view.
+
+### Example workflow
+
+```terminal
+# 1. Filter for git commands and select some
+/git
+[Esc]
+[Space on "git status"]
+[Space on "git push"]
+
+# 2. Clear filter to show all commands
+/
+[Ctrl+u]
+[Esc]
+
+# 3. Filter for docker commands and select some
+/docker
+[Esc]
+[Space on "docker ps"]
+
+# 4. Press 'y' to copy
+# Clipboard contains:
+# git status
+# git push  
+# docker ps
+```
+
+Your git selections remained active even when you filtered for docker commands.
+
+## Selection with sorting
+
+Changing the sort order doesn't affect selection order for copying.
+
+```terminal
+# In Recency order
+✓ git push                [selected first]
+  git commit
+✓ git add .               [selected second]
+
+# Press 's' to switch to Alpha order
+✓ git add .               [was selected second]
+  git commit
+✓ git push                [was selected first]
+
+# Press 'y'
+# Clipboard contains (original selection order):
+# git push
+# git add .
+```
+
+## Clipboard integration
+
+Hline uses your system clipboard:
+
+- **Linux**: X11 clipboard (primary and clipboard selection) or Wayland clipboard
+- **macOS**: pbcopy/pbpaste
+- **Windows**: Windows clipboard API
+
+After copying with `y`, you can paste the commands anywhere using your system's paste shortcut (usually Ctrl+V or Cmd+V).
+
+## Error handling
+
+If copying fails, you'll see an error toast:
+
+```terminal
+Clipboard error: failed to access clipboard
+```
+
+This can happen if:
+- The clipboard service isn't available
+- You're using hline over SSH without X11 forwarding
+- The clipboard API isn't accessible
+
+## Tips
+
+- Select commands in the order you want to run them, not the order they appear
+- Use `a` to quickly select all commands matching a filter
+- Clear selections with `c` before starting a new selection
+- Copy a single command with `y` without needing to select it first

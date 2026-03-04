@@ -1,0 +1,158 @@
+---
+title: Search and filter
+description: Filter your command history with fast, case-insensitive search
+---
+
+Hline provides real-time filtering of your command history using case-insensitive substring matching. As you type, the list updates instantly to show only matching commands.
+
+## Entering search mode
+
+Press `/` in normal mode to activate search mode. The status bar at the bottom changes to show your search query.
+
+```terminal
+# Before pressing /
+Filter: no filter | Sort: Recency (newest-first)
+
+# After pressing / and typing "git"
+Filter: git | Sort: Recency (newest-first)
+```
+
+## How search works
+
+Search uses case-insensitive substring matching. The query you type is matched against the full text of each command in your history.
+
+### Case-insensitive matching
+
+All searches ignore case, so these queries produce identical results:
+
+- `git status`
+- `GIT STATUS`
+- `Git Status`
+- `gIt StAtUs`
+
+### Substring matching
+
+The query can match anywhere in the command:
+
+```terminal
+# Query: "test"
+# Matches:
+rake test
+npm run test:unit
+find . -name test.txt
+pytest tests/
+```
+
+### Multi-word queries
+
+You can search for multiple words. The entire query string is treated as a single substring:
+
+```terminal
+# Query: "git push"
+# Matches:
+git push origin main
+git push --force-with-lease
+
+# Does NOT match:
+git commit -m "push changes"
+```
+
+## Editing the search query
+
+While in search mode, you can edit your query using these keybindings:
+
+<ParamField path="Backspace" type="key">
+  Delete one character
+</ParamField>
+
+<ParamField path="Ctrl+w" type="key">
+  Delete the last word (removes trailing whitespace first, then deletes back to the previous whitespace)
+</ParamField>
+
+<ParamField path="Ctrl+Backspace" type="key">
+  Same as Ctrl+w (delete last word)
+</ParamField>
+
+<ParamField path="Ctrl+u" type="key">
+  Clear the entire query
+</ParamField>
+
+### Word deletion example
+
+```terminal
+# Query: "docker run --rm"
+# Press Ctrl+w once
+docker run 
+
+# Press Ctrl+w again
+docker 
+
+# Press Ctrl+w again
+(empty query)
+```
+
+## Exiting search mode
+
+Press `Esc` or `Enter` to exit search mode and return to normal mode. Your filter remains active until you clear it or enter a new search.
+
+```terminal
+# In search mode with query "git"
+Filter: git | Sort: Recency (newest-first)
+
+# After pressing Esc
+Filter: git | Sort: Recency (newest-first)
+# Still filtered, but back in normal mode
+```
+
+## Clearing the filter
+
+To remove an active filter, you have two options:
+
+1. **In search mode**: Press `Ctrl+u` to clear the query, then press `Esc` or `Enter`
+2. **From normal mode**: Press `/` to enter search mode, then `Ctrl+u` to clear, then `Esc` or `Enter`
+
+## Search with selection
+
+Filtering and selection work together:
+
+- **Selections persist**: Selected commands remain selected even when filtered out of view
+- **Select all filtered**: Press `a` in normal mode to select only the currently visible (filtered) commands
+- **Copy respects selection**: Press `y` to copy all selected commands, regardless of the current filter
+
+### Example workflow
+
+```terminal
+# 1. Filter for git commands
+/git
+
+# 2. Exit search mode
+Esc
+
+# 3. Select all visible git commands
+a
+
+# 4. Clear the filter to see all commands again
+/
+Ctrl+u
+Esc
+
+# 5. Filter for docker commands
+/docker
+Esc
+
+# 6. Select additional docker commands
+Space (on each command)
+
+# 7. Copy all selected commands (both git and docker)
+y
+```
+
+## Performance
+
+Search is optimized for speed:
+
+- ASCII queries use byte-level case-insensitive matching
+- Unicode queries use standard string lowercase comparison
+- Results update on every keystroke with no perceptible delay
+
+You can search through thousands of history entries instantly.
