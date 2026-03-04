@@ -1,0 +1,57 @@
+{
+  "projectType": "cli-tool",
+  "projectName": "hline",
+  "projectDescription": "Terminal UI for browsing bash history with centered cursor, live filtering, sorting, multi-select, and clipboard copy.",
+  "theme": "aspen",
+  "primaryColor": "#242b2c",
+  "lightColor": "#040404",
+  "darkColor": null,
+  "navigation": {
+    "groups": [
+      {
+        "group": "Get Started",
+        "pages": [
+          "introduction",
+          "installation",
+          "quickstart"
+        ]
+      },
+      {
+        "group": "Usage Guide",
+        "pages": [
+          "usage/keybindings",
+          "usage/search-and-filter",
+          "usage/sorting",
+          "usage/selection-and-copy"
+        ]
+      },
+      {
+        "group": "Reference",
+        "pages": [
+          "reference/command-line-options",
+          "reference/configuration"
+        ]
+      },
+      {
+        "group": "Development",
+        "pages": [
+          "development/building-from-source",
+          "development/contributing",
+          "development/changelog"
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "Centered-cursor scrolling for large history files",
+    "Live search and filter mode with case-insensitive matching",
+    "Multiple sort modes: recency, alphabetical, and length",
+    "Multi-select with clipboard copy support",
+    "Vi-style keybindings for efficient navigation",
+    "Custom history path support"
+  ],
+  "publicApiSurface": [
+    "hline (binary command)",
+    "--file PATH (command-line option)"
+  ]
+}
